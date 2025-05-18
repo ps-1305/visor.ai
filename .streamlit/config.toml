@@ -1,0 +1,11 @@
+[theme]
+
+base = "dark"
+font = "monospace"
+
+primaryColor = "#FFFE4B"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+linkColor = "FFFE4B"
+codeBackgroundColor = "#262730"
