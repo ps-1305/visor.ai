@@ -165,11 +165,12 @@ if page == 'Demo':
     col1, col2, col3 = st.columns([1,3,1])
     if submit and len(st.session_state['positions']) == 2 and st.session_state['canvas_image'] is not None:
         with col2:
+            subcol1, subcol2 = st.columns(2)
             question = f"Is there a {selection_1} {pos} a {selection_2}?"
-            st.text(f"Your question: {question}")
 
             # Preprocess the inputs
-            st.image(st.session_state['canvas_image'], caption="Input")
+            with subcol1:
+                st.image(st.session_state['canvas_image'], caption="Input")
             image_tensor = preprocess_image()(st.session_state['canvas_image']).unsqueeze(0)
             tokens = preprocess_question(question)
             input_ids = tokens['input_ids']
@@ -181,7 +182,9 @@ if page == 'Demo':
                 prediction = torch.argmax(logits, dim=1).item()
 
             answer = 'YES' if prediction == 0 else 'NO'
-            st.success(f"Model Prediction: {answer}")
+            with subcol2:
+                st.text(f"Your question: {question}")
+                st.success(f"Model Prediction: {answer}")
 
 elif page == 'Code':
     st.title("Code Page")
