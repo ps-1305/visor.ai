@@ -5,5 +5,4 @@ Visual Question Answering model using. BERT and ResNet50, Made with Pytorch. Cou
   <img src="https://skillicons.dev/icons?i=py,pytorch" />
 </p>
 
-Check it out! 
-csl2010-group64.streamlit.app
+<a href="https://csl2010-group64.streamlit.app">Check it out!</a>
