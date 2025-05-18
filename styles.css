@@ -1,0 +1,15 @@
+/* Make sidebar buttons full width, no border */
+.stButton > button {
+    width: 100%;
+    border: none;
+    background-color: #0E1117;
+    color: #fafafa;
+    display: flex;        /* Use flexbox layout */
+    justify-content: flex-start
+}
+
+/* Change color on hover */
+.stButton > button:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
