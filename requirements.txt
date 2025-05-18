@@ -1,1 +1,7 @@
+streamlit
+torch
+transformers
+gdown
+Pillow
+torchvision
 streamlit-drawable-canvas
