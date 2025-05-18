@@ -9,7 +9,11 @@ from streamlit_drawable_canvas import st_canvas
 from model import VQAModel, preprocess_image, preprocess_question
 
 # Configuration
-st.set_page_config(page_title="Visor.AI", layout="wide")
+st.set_page_config(
+    page_title="Visor.AI",
+    page_icon="favicon.ico",  # The path to your .ico file
+    layout="wide"
+)
 
 @st.cache_resource  # Caches the model to avoid re-downloading/reloading each runtime
 def load_model():
