@@ -195,4 +195,56 @@ elif page == 'Code':
     st.write("Here is the code section.")
 
 elif page == 'Results':
-    st.title("Results Page")
+    st.title("Results")
+    st.text("The tests were conducted on a T4 GPU on Google Colab")
+    img1 = Image.open('images/group64_img1.png')
+    img2 = Image.open('images/group64_img2.png')
+    img3 = Image.open('images/group64_img3.png')
+    img4 = Image.open('images/group64_img4.png')
+    img5 = Image.open('images/group64_img5.png')
+
+    col1, col2 = st.columns(2, gap="small")
+    with col1:
+        st.image(img1)
+    with col2:
+        st.header("Plots during initial training and testing")
+        st.markdown(
+            """
+            The plots illustrate the impact of label noise on model performance, with **65 out of 200 (~30.2%)** test images and **297 out of 1000 (~29.7%)** training images affected by noise. 
+            The accuracy plots show that while training accuracy steadily increases, test accuracy begins to degrade sharply after the 7th epoch, indicating overfitting to noisy training data. 
+            Similarly, the training loss decreases smoothly, whereas test loss fluctuates and rises towards the end, further highlighting the model’s struggle to generalize under noisy conditions.
+            """
+        )
+
+    col1, col2 = st.columns([1,2])
+    with col1:
+        st.header("Plots after testing with  noisy data")  
+    with col2:
+        st.text(
+            """
+            Under TV noise, the model maintains relatively stable performance across varying noise levels, with accuracy fluctuating slightly around a peak of 83%. In contrast, shape and color noise have a more pronounced impact, causing a steep decline in accuracy as noise increases. Shape noise drives accuracy down from 88% to around 52% at 0.5 noise, with a slight recovery thereafter. Similarly, color noise causes a sharp drop from 90.5% to nearly 51% around the 0.4 mark, followed by partial recovery at higher noise levels.
+            """
+        )  
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image(img2)
+    with col2:
+        st.image(img3)
+    with col3:
+        st.image(img4)
+
+    col1, col2 = st.columns(2, gap="small")
+    with col2:
+        st.image(img5)
+    with col1:
+        st.header("Final plots for best overall accuracy")
+        st.markdown(
+            """
+            The ideal noise conditions are :\n 
+                1. TV noise = 25%\n
+                2. Shape noise = 1%\n
+                3. Color noise = 1%\n
+            With these parameters, the best accuracy comes out to be **97.5%**
+            """
+        )
