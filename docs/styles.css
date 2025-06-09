@@ -241,3 +241,39 @@ code, pre {
         margin-bottom: 8px;
     }
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    margin-top: 16px;
+}
+
+th, td {
+    border: 2px solid #c0c0c0;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #316ac5;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+th, td:first-child {
+    border-left: none;
+}
+
+th, td:last-child {
+    border-right: none;
+}
