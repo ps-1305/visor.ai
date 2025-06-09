@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VQA Model - Model Architecture</title>
+    <title>VQA Model - Data Preparation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
                 <div class="logo-icon">VQA</div>
                 <span>Model Documentation</span>
             </div>
-            <div class="breadcrumb">Documentation > Model Architecture</div>
+            <div class="breadcrumb">Documentation > Data Preparation</div>
         </div>
     </header>
 
@@ -33,81 +33,40 @@
         </aside>
 
         <main class="main-content">
-            <section id="model-architecture">
-                <h1>Model Architecture</h1>
+            <section id="data-preparation">
+                <h1>Data Preparation</h1>
                 <h2>Overview</h2>
                 <p>
-                    The VQA Model connects visual and textual modalities to predict answers to questions about images. The architecture is designed to integrate deep feature extraction, language processing, and cross-modal attention.
+                    Preparing datasets is a critical step in training the VQA Model. This involves generating synthetic data, adding controlled noise, and preprocessing.
                 </p>
 
-                <h2>Components</h2>
-                <h3>1. ResNet Feature Extractor</h3>
+                <h2>Dataset Generation</h2>
                 <p>
-                    The ResNet Feature Extractor is responsible for generating high-level image representations. A pre-trained ResNet model is used, with its final layers modified for optimal feature extraction.
+                    The dataset consists of synthetic images created using geometric shapes such as circles, squares, and triangles, combined with questions about the spatial relationships between these shapes.
                 </p>
-<pre><code>class ResNetFeatureExtractor(nn.Module):
-    def __init__(self, output_dim=768):
-        super().__init__()
-        resnet = resnet50(pretrained=True)
-        self.backbone = nn.Sequential(*list(resnet.children())[:-2])
-        self.pooling = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(2048, output_dim)
-
-    def forward(self, x):
-        x = self.backbone(x)
-        x = self.pooling(x)
-        x = torch.flatten(x, 1)
-        x = self.fc(x)
-        return x
+<pre><code>class ShapeGenerator:
+    def generate_sample(self):
+        img = Image.new('RGB', self.img_size, 'white')
+        draw = ImageDraw.Draw(img)
+        ...
+        return img, question, answer
 </code></pre>
 
-                <h3>2. BERT for Text Processing</h3>
+                <h2>Incorporating Noise</h2>
                 <p>
-                    Questions are encoded into contextualized embeddings using a pre-trained BERT model. The output is projected to match the dimensionality of the image features.
+                    Noise is added at various levels to evaluate the model's robustness. This includes visual noise in images and semantic noise in questions.
                 </p>
 
-                <h3>3. CrossAttention Mechanism</h3>
+                <h2>Preprocessing Steps</h2>
                 <p>
-                    This module facilitates interaction between image and question features, using a cross-attention mechanism to determine relevancy between text and visual inputs.
+                    All input data undergoes preprocessing before it's fed into the model. This includes image resizing, normalization, and question tokenization.
                 </p>
-<pre><code>class CrossAttention(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-        self.query = nn.Linear(dim, dim)
-        self.key = nn.Linear(dim, dim)
-        self.value = nn.Linear(dim, dim)
-        self.scale = dim ** -0.5
-
-    def forward(self, x, y):
-        q = self.query(x)
-        k = self.key(y)
-        v = self.value(y)
-
-        attention = torch.matmul(q, k.transpose(-2, -1)) * self.scale
-        attention = torch.softmax(attention, dim=-1)
-        out = torch.matmul(attention, v)
-        return out
-</code></pre>
-
-                <h3>4. Classifier</h3>
-                <p>
-                    A sequence of fully connected layers is used to predict the final answer from the attended feature set. Dropout is employed to prevent overfitting and enhance generalization.
-                </p>
-<pre><code>class VQAModel(nn.Module):
-    ...
-    def forward(self, image, question_ids, attention_mask):
-        image_features = self.resnet_features(image)
-        question_output = self.bert(question_ids, attention_mask=attention_mask)
-        question_features = self.bert_projection(question_output.last_hidden_state)
-
-        fused_features = self.fusion(question_features, image_features.unsqueeze(1))
-
-        attention_weights = self.attention(fused_features)
-        attention_weights = torch.softmax(attention_weights, dim=1)
-        attended_features = (fused_features * attention_weights).sum(dim=1)
-
-        logits = self.classifier(attended_features)
-        return logits
+<pre><code>def preprocess_image():
+    return Compose([
+        Resize((224, 224)),
+        ToTensor(),
+        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
 </code></pre>
 
             </section>
