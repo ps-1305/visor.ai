@@ -94,7 +94,7 @@ body {
 .sidebar a {
     color: #0000ee;
     text-decoration: underline;
-    font-size: 11px;
+    font-size: 14px;
     display: block;
     padding: 1px;
 }
@@ -283,3 +283,10 @@ th {
     border-right: 1px solid #666699;
     border-bottom: 2px inset #c0c0c0;
 }
+
+ul {
+    list-style-type: none; /* Removes bullets from the lists */
+    padding-left: 0; /* Removes default padding */
+    margin-bottom: 16px; /* Ensures proper spacing */
+}
+
