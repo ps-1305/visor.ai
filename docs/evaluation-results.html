@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VQA Model - Evaluation & Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">VQA</div>
+                <span>Model Documentation</span>
+            </div>
+            <div class="breadcrumb">Documentation > Evaluation & Results</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Sections</h3>
+            <ul>
+                <li><a href="introduction.html">Introduction</a></li>
+                <li><a href="data-preparation.html">Data Preparation</a></li>
+                <li><a href="model-architecture.html">Model Architecture</a></li>
+                <li><a href="training-process.html">Training Process</a></li>
+                <li><a href="validation-process.html">Validation Process</a></li>
+                <li><a href="evaluation-results.html">Evaluation & Results</a></li>
+                <li><a href="conclusion.html">Conclusion</a></li>
+                <li><a href="appendix.html">Appendix</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="evaluation-results">
+                <h1>Evaluation & Results</h1>
+                <h2>Overview</h2>
+                <p>
+                    The evaluation stage involves analyzing the model's performance on the test dataset using previously unseen data. This section outlines the methods used to evaluate the model and the results obtained. It also provides insights into its performance under various conditions.
+                </p>
+
+                <h2>Test Dataset Evaluation</h2>
+                <p>
+                    The model is subjected to a range of tests to evaluate its robustness and accuracy. The performance metrics include measures such as precision, recall, F1-score, and accuracy, calculated over different levels of introduced noise.
+                </p>
+
+                <h2>Results Analysis</h2>
+                <p>
+                    Here is a snapshot of the model's performance across different noise levels. The tables below show accuracy metrics for visual, shape, and color noise, demonstrating how the model maintains its accuracy under various disturbances.
+                </p>
+                <!-- Example table; replace with real data and images if available -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Noise Type</th>
+                            <th>Noise Level</th>
+                            <th>Accuracy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Visual Noise</td>
+                            <td>0.05</td>
+                            <td>92%</td>
+                        </tr>
+                        <tr>
+                            <td>Shape Noise</td>
+                            <td>0.10</td>
+                            <td>89%</td>
+                        </tr>
+                        <tr>
+                            <td>Color Noise</td>
+                            <td>0.15</td>
+                            <td>85%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Graphics</h2>
+                <p>
+                    Graphical representations such as confusion matrices and ROC curves can offer visual insights into the model's performance. These help identify areas needing improvement and validate the effectiveness of our model strategy.
+                </p>
+
+                <!-- Example images; replace with real images if available -->
+                <img src="confusion_matrix.png" alt="Confusion Matrix" style="width:100%; max-width:600px;">
+                <img src="roc_curve.png" alt="ROC Curve" style="width:100%; max-width:600px;">
+            </section>
+        </main>
+    </div>
+</body>
+</html>
