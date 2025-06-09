@@ -3,161 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VQA Model Documentation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            line-height: 1.2;
-            color: #000;
-            background: #c0c0c0;
-        }
-
-        /* Header */
-        .header {
-            background: #316ac5;
-            color: white;
-            padding: 8px 0;
-            border-bottom: 2px solid #1e4176;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            background: white;
-            border: 1px solid #808080;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #316ac5;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .breadcrumb {
-            font-size: 11px;
-            color: #e0e0e0;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: table;
-            width: 100%;
-            background: white;
-            border: 2px outset #c0c0c0;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            display: table-cell;
-            width: 200px;
-            background: #d4d0c8;
-            padding: 12px;
-            border-right: 2px inset #c0c0c0;
-            vertical-align: top;
-        }
-
-        .sidebar h3 {
-            color: #000080;
-            margin-bottom: 8px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            background: #9999cc;
-            padding: 2px 4px;
-            border: 1px outset #9999cc;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            margin-bottom: 16px;
-        }
-
-        .sidebar li {
-            margin-bottom: 2px;
-        }
-
-        .sidebar a {
-            color: #0000ee;
-            text-decoration: underline;
-            font-size: 11px;
-            display: block;
-            padding: 1px;
-        }
-
-        .sidebar a:hover {
-            background: #0000ee;
-            color: white;
-        }
-
-        .sidebar a:visited {
-            color: #800080;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: table-cell;
-            background: white;
-            padding: 16px;
-            vertical-align: top;
-        }
-
-        h1, h2, h3 {
-            color: #000080;
-        }
-
-        p {
-            line-height: 1.6;
-        }
-
-        code {
-            background: #f9f9f9;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                display: block;
-            }
-
-            .sidebar {
-                display: block;
-                width: 100%;
-                border-right: none;
-                border-bottom: 2px inset #c0c0c0;
-            }
-
-            .main-content {
-                display: block;
-            }
-        }
-    </style>
+    <title>VQA Model - Introduction</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
@@ -166,7 +13,7 @@
                 <div class="logo-icon">VQA</div>
                 <span>Model Documentation</span>
             </div>
-            <div class="breadcrumb">Documentation > VQA Model</div>
+            <div class="breadcrumb">Documentation > Introduction</div>
         </div>
     </header>
 
@@ -174,14 +21,14 @@
         <aside class="sidebar">
             <h3>Sections</h3>
             <ul>
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#data-preparation">Data Preparation</a></li>
-                <li><a href="#model-architecture">Model Architecture</a></li>
-                <li><a href="#training-process">Training Process</a></li>
-                <li><a href="#validation-process">Validation Process</a></li>
-                <li><a href="#evaluation-results">Evaluation & Results</a></li>
-                <li><a href="#conclusion">Conclusion</a></li>
-                <li><a href="#appendix">Appendix</a></li>
+                <li><a href="introduction.html">Introduction</a></li>
+                <li><a href="data-preparation.html">Data Preparation</a></li>
+                <li><a href="model-architecture.html">Model Architecture</a></li>
+                <li><a href="training-process.html">Training Process</a></li>
+                <li><a href="validation-process.html">Validation Process</a></li>
+                <li><a href="evaluation-results.html">Evaluation & Results</a></li>
+                <li><a href="conclusion.html">Conclusion</a></li>
+                <li><a href="appendix.html">Appendix</a></li>
             </ul>
         </aside>
 
@@ -189,71 +36,19 @@
             <section id="introduction">
                 <h1>Introduction</h1>
                 <h2>Visual Question Answering (VQA) Model Overview</h2>
-                <p>The <strong>Visual Question Answering (VQA) Model</strong> is a deep learning framework designed to infer answers to questions based on visual input...</p>
+                <p>
+                    The <strong>Visual Question Answering (VQA) Model</strong> is a deep learning framework designed to infer answers to questions based on visual input. This model integrates computer vision and natural language processing, enabling machines to understand images in context.
+                </p>
                 <h2>Purpose and Applications</h2>
-                <p>The model is intended for usage in applications such as:</p>
+                <p>
+                    The model serves various applications such as:
+                </p>
                 <ul>
-                    <li><strong>Educational Technology:</strong> Enabling interactive learning tools...</li>
-                    <li><strong>Accessibility:</strong> Assisting those with visual impairments...</li>
-                    <li><strong>Customer Service:</strong> Automating responses to visual content inquiries...</li>
+                    <li><strong>Educational Technology:</strong> Enabling tools that interactively respond to content inquiries.</li>
+                    <li><strong>Accessibility:</strong> Offering assistance to visually impaired individuals by providing textual feedback from visual inputs.</li>
+                    <li><strong>Customer Service:</strong> Automatically handling visual content-based queries in support functions.</li>
                 </ul>
             </section>
-
-            <section id="data-preparation">
-                <h1>Data Preparation</h1>
-                <h2>Synthetic Dataset Creation</h2>
-                <p>The <strong>ShapesDataset</strong> plays a crucial role in preparing the training and testing data...</p>
-                <h3>ShapeGenerator</h3>
-                <p><code>ShapeGenerator</code> is responsible for crafting the synthetic images...</p>
-                <h3>Noise Injection</h3>
-                <p>To emulate real-world data imperfections, noise is introduced at multiple levels...</p>
-                <h3>Preprocessing Steps</h3>
-                <p>Before feeding data into the model, images and questions undergo essential preprocessing...</p>
-            </section>
-
-            <section id="model-architecture">
-                <h1>Model Architecture</h1>
-                <h2>Overview</h2>
-                <p>The VQA Model connects visual and textual modalities to predict answers...</p>
-                <h3>ResNet Feature Extractor</h3>
-                <p>Extract high-level features from input images using a modified ResNet model...</p>
-                <h3>BERT for Text Processing</h3>
-                <p>Process input questions and derive meaningful vector representations...</p>
-                <h3>CrossAttention Mechanism</h3>
-                <p>Facilitates interaction between image and question features...</p>
-            </section>
-
-            <section id="training-process">
-                <h1>Training Process</h1>
-                <h2>Training Loop</h2>
-                <p>Optimize model parameters using supervised learning techniques...</p>
-                <h2>Noise Experiments</h2>
-                <p>Various levels of noise are tested to measure model robustness...</p>
-            </section>
-
-            <section id="validation-process">
-                <h1>Validation Process</h1>
-                <h2>Evaluation Strategy</h2>
-                <p>The validation phase tests model performance on unseen data...</p>
-                <h2>Results Snapshot</h2>
-                <p>Validation results help in comparing accuracy improvements...</p>
-            </section>
-
-            <section id="evaluation-results">
-                <h1>Evaluation & Results</h1>
-                <p>Comprehensive evaluation assesses model efficiency...</p>
-            </section>
-
-            <section id="conclusion">
-                <h1>Conclusion</h1>
-                <p>Summarizing the success of the VQA Model...</p>
-            </section>
-
-            <section id="appendix">
-                <h1>Appendix</h1>
-                <p>Detailed code listings or additional resources provided for thorough understanding...</p>
-            </section>
-
         </main>
     </div>
 </body>
