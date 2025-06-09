@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VQA Model - Validation Process</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">VQA</div>
+                <span>Model Documentation</span>
+            </div>
+            <div class="breadcrumb">Documentation > Validation Process</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Sections</h3>
+            <ul>
+                <li><a href="introduction.html">Introduction</a></li>
+                <li><a href="data-preparation.html">Data Preparation</a></li>
+                <li><a href="model-architecture.html">Model Architecture</a></li>
+                <li><a href="training-process.html">Training Process</a></li>
+                <li><a href="validation-process.html">Validation Process</a></li>
+                <li><a href="evaluation-results.html">Evaluation & Results</a></li>
+                <li><a href="conclusion.html">Conclusion</a></li>
+                <li><a href="appendix.html">Appendix</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="validation-process">
+                <h1>Validation Process</h1>
+                <h2>Overview</h2>
+                <p>
+                    The validation process is crucial for assessing the model's generalization capabilities. It involves evaluating the model on a separate validation dataset that it hasn't seen during training.
+                </p>
+
+                <h2>Evaluation Strategy</h2>
+                <p>
+                    The model's performance is measured using accuracy as the primary metric. It calculates the proportion of correctly answered questions over the total number of questions.
+                </p>
+<pre><code>def validate(model, dataloader, criterion, device):
+    model.eval()
+    total_loss = 0
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+        for batch in tqdm(dataloader, desc='Validating'):
+            images = batch['image'].to(device)
+            questions = batch['question']
+            answers = batch['answer'].to(device)
+
+            question_tokens = tokenizer(questions, padding=True, truncation=True,
+                                      return_tensors='pt').to(device)
+
+            outputs = model(images, question_tokens.input_ids,
+                          question_tokens.attention_mask)
+            loss = criterion(outputs, answers)
+
+            total_loss += loss.item()
+            _, predicted = outputs.max(1)
+            total += answers.size(0)
+            correct += predicted.eq(answers).sum().item()
+
+    return total_loss / len(dataloader), 100. * correct / total
+</code></pre>
+
+                <h2>Result Interpretation</h2>
+                <p>
+                    Validation loss and accuracy are important for diagnosing model behavior. A lower validation loss compared to training loss can indicate better generalization, while higher accuracy confirms the model's reliability.
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
