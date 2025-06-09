@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VQA Model - Model Architecture</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">VQA</div>
+                <span>Model Documentation</span>
+            </div>
+            <div class="breadcrumb">Documentation > Model Architecture</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Sections</h3>
+            <ul>
+                <li><a href="introduction.html">Introduction</a></li>
+                <li><a href="data-preparation.html">Data Preparation</a></li>
+                <li><a href="model-architecture.html">Model Architecture</a></li>
+                <li><a href="training-process.html">Training Process</a></li>
+                <li><a href="validation-process.html">Validation Process</a></li>
+                <li><a href="evaluation-results.html">Evaluation & Results</a></li>
+                <li><a href="conclusion.html">Conclusion</a></li>
+                <li><a href="appendix.html">Appendix</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="model-architecture">
+                <h1>Model Architecture</h1>
+                <h2>Overview</h2>
+                <p>
+                    The VQA Model connects visual and textual modalities to predict answers to questions about images. The architecture is designed to integrate deep feature extraction, language processing, and cross-modal attention.
+                </p>
+
+                <h2>Components</h2>
+                <h3>1. ResNet Feature Extractor</h3>
+                <p>
+                    The ResNet Feature Extractor is responsible for generating high-level image representations. A pre-trained ResNet model is used, with its final layers modified for optimal feature extraction.
+                </p>
+<pre><code>class ResNetFeatureExtractor(nn.Module):
+    def __init__(self, output_dim=768):
+        super().__init__()
+        resnet = resnet50(pretrained=True)
+        self.backbone = nn.Sequential(*list(resnet.children())[:-2])
+        self.pooling = nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = nn.Linear(2048, output_dim)
+
+    def forward(self, x):
+        x = self.backbone(x)
+        x = self.pooling(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
+        return x
+</code></pre>
+
+                <h3>2. BERT for Text Processing</h3>
+                <p>
+                    Questions are encoded into contextualized embeddings using a pre-trained BERT model. The output is projected to match the dimensionality of the image features.
+                </p>
+
+                <h3>3. CrossAttention Mechanism</h3>
+                <p>
+                    This module facilitates interaction between image and question features, using a cross-attention mechanism to determine relevancy between text and visual inputs.
+                </p>
+<pre><code>class CrossAttention(nn.Module):
+    def __init__(self, dim):
+        super().__init__()
+        self.query = nn.Linear(dim, dim)
+        self.key = nn.Linear(dim, dim)
+        self.value = nn.Linear(dim, dim)
+        self.scale = dim ** -0.5
+
+    def forward(self, x, y):
+        q = self.query(x)
+        k = self.key(y)
+        v = self.value(y)
+
+        attention = torch.matmul(q, k.transpose(-2, -1)) * self.scale
+        attention = torch.softmax(attention, dim=-1)
+        out = torch.matmul(attention, v)
+        return out
+</code></pre>
+
+                <h3>4. Classifier</h3>
+                <p>
+                    A sequence of fully connected layers is used to predict the final answer from the attended feature set. Dropout is employed to prevent overfitting and enhance generalization.
+                </p>
+<pre><code>class VQAModel(nn.Module):
+    ...
+    def forward(self, image, question_ids, attention_mask):
+        image_features = self.resnet_features(image)
+        question_output = self.bert(question_ids, attention_mask=attention_mask)
+        question_features = self.bert_projection(question_output.last_hidden_state)
+
+        fused_features = self.fusion(question_features, image_features.unsqueeze(1))
+
+        attention_weights = self.attention(fused_features)
+        attention_weights = torch.softmax(attention_weights, dim=1)
+        attended_features = (fused_features * attention_weights).sum(dim=1)
+
+        logits = self.classifier(attended_features)
+        return logits
+</code></pre>
+
+            </section>
+        </main>
+    </div>
+</body>
+</html>
