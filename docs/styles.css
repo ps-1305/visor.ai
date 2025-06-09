@@ -6,7 +6,7 @@
 
 body {
     font-family: 'MS Sans Serif', Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.2;
     color: #000;
     background: #c0c0c0;
 }
@@ -45,7 +45,7 @@ body {
     justify-content: center;
     color: #316ac5;
     font-weight: bold;
-    font-size: 8px;
+    font-size: 12px;
 }
 
 .breadcrumb {
@@ -56,12 +56,14 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
+    display: table;
+    width: 100%;
     background: white;
     border: 2px outset #c0c0c0;
 }
 
 .sidebar {
+    display: table-cell;
     width: 200px;
     background: #d4d0c8;
     padding: 12px;
@@ -82,6 +84,7 @@ body {
 .sidebar ul {
     list-style: none;
     margin-bottom: 16px;
+    padding-left: 0;
 }
 
 .sidebar li {
@@ -106,35 +109,65 @@ body {
 }
 
 .main-content {
-    flex: 1;
-    padding: 16px;
+    display: table-cell;
     background: white;
+    padding: 16px;
+    vertical-align: top;
+}
+
+.page-title {
+    font-size: 24px;
+    color: #000080;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: #333;
+    font-style: italic;
+    margin-bottom: 16px;
 }
 
 h1, h2, h3 {
     color: #000080;
 }
 
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
 p {
     margin-bottom: 16px;
 }
 
-code {
-    background: #f9f9f9;
-    padding: 2px 4px;
+code, pre {
+    display: block;
+    background: #f0f0f0;
+    border: 2px solid #316ac5;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 11px;
     border-radius: 4px;
-    font-size: 0.9em;
+    overflow-x: auto;
 }
 
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        border-bottom: 2px inset #c0c0c0;
-    }
+.features-grid {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 8px;
+    margin-bottom: 24px;
 }
 
 .feature-card {
@@ -144,7 +177,6 @@ code {
     border: 2px outset #c0c0c0;
     padding: 12px;
     vertical-align: top;
-    margin-bottom: 16px;
 }
 
 .feature-card:hover {
@@ -170,10 +202,42 @@ code {
     line-height: 1.3;
 }
 
-.features-grid {
-    display: table;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 8px;
-    margin-bottom: 24px;
+.feature-description a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.feature-description a:hover {
+    background: #ffff00;
+}
+
+.feature-description a:visited {
+    color: #800080;
+}
+
+@media (max-width: 768px) {
+    .container {
+        display: block;
+    }
+
+    .sidebar {
+        display: block;
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px inset #c0c0c0;
+    }
+
+    .main-content {
+        display: block;
+    }
+
+    .features-grid {
+        display: block;
+    }
+
+    .feature-card {
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+    }
 }
