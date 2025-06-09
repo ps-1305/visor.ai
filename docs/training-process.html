@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VQA Model - Training Process</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">VQA</div>
+                <span>Model Documentation</span>
+            </div>
+            <div class="breadcrumb">Documentation > Training Process</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Sections</h3>
+            <ul>
+                <li><a href="introduction.html">Introduction</a></li>
+                <li><a href="data-preparation.html">Data Preparation</a></li>
+                <li><a href="model-architecture.html">Model Architecture</a></li>
+                <li><a href="training-process.html">Training Process</a></li>
+                <li><a href="validation-process.html">Validation Process</a></li>
+                <li><a href="evaluation-results.html">Evaluation & Results</a></li>
+                <li><a href="conclusion.html">Conclusion</a></li>
+                <li><a href="appendix.html">Appendix</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="training-process">
+                <h1>Training Process</h1>
+                <h2>Overview</h2>
+                <p>
+                    Training the VQA model involves optimizing its parameters over multiple epochs to minimize its prediction error. This section explores the training loop, noise experiments, and optimization details.
+                </p>
+
+                <h2>Training Loop</h2>
+                <p>
+                    The training loop iteratively updates model weights using batches of data. Each iteration involves forward and backward passes with gradient descent applied via an optimizer.
+                </p>
+<pre><code>def train_one_epoch(model, dataloader, criterion, optimizer, device):
+    model.train()
+    total_loss = 0
+    correct = 0
+    total = 0
+
+    for batch in tqdm(dataloader, desc='Training'):
+        images = batch['image'].to(device)
+        questions = batch['question']
+        answers = batch['answer'].to(device)
+
+        question_tokens = tokenizer(questions, padding=True, truncation=True,
+                                  return_tensors='pt').to(device)
+
+        optimizer.zero_grad()
+        outputs = model(images, question_tokens.input_ids,
+                       question_tokens.attention_mask)
+
+        loss = criterion(outputs, answers)
+        loss.backward()
+        optimizer.step()
+
+        total_loss += loss.item()
+        _, predicted = outputs.max(1)
+        total += answers.size(0)
+        correct += predicted.eq(answers).sum().item()
+
+    return total_loss / len(dataloader), 100. * correct / total
+</code></pre>
+
+                <h2>Optimization</h2>
+                <p>
+                    The model uses the Adam optimizer for efficient convergence. CrossEntropyLoss helps in quantifying prediction errors by comparing predicted and true labels.
+                </p>
+
+                <h2>Noise Experiments</h2>
+                <p>
+                    To evaluate robustness, the model is trained with varying noise levels. This includes visual noise in images and semantic noise in shape/color identification. Noise injection involves modifying dataset generation procedures.
+                </p>
+
+                <h2>Learning Schedule</h2>
+                <p>
+                    Gradient descent parameters, such as learning rates and batch sizes, are tuned carefully for optimal training results. The model's performance is monitored via validation to avert overfitting.
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
